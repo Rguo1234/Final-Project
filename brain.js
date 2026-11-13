@@ -1,6 +1,10 @@
+const OVERTIME = 1000;
 let t= 0;
-const overTime = 1000;
-let scene = [[]];
+let scene = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1];
+let firstLayer = [], secondLayer = [], output = [], input = [], rewards = [];
+let hidden = 10, inputLength = 15, outputLength = 5;
+let beta = 0.25, R = 0.9, C = 0.8, urest = 0, ureset = 0, threshold = 1; 
+let inputfirst = [], firstsecond = [], secondoutput = [];
 function createNeuron(R, C, threshold, urest, ureset) {
     let neuron = [R, C, threshold, urest, ureset, R * C, [], []];
     return neuron;
@@ -20,7 +24,7 @@ function createWeight() {
     return Math.random();
 }
 function keepTime() {
-    if (t > overTime) {
+    if (t > OVERTIME) {
         for (let i = 0; i < hidden; i++) {
             firstLayer[i][7] = [];
             firstLayer[i][6] = [];
@@ -41,16 +45,19 @@ function keepTime() {
 }
 function reward() {
     rewards[0] = 1;
-    return Math.max(rewards);
+    let mx = 0;
+    for (let i = 0; i < outputLength; i++)
+        mx = Math.max(mx, rewards[i]);
+    return mx;
 }
 function loss(output) {
-    return Math.pow(reward() - output, 2) + beta * (t - overTime);
+    return Math.pow((reward() - output), 2) + beta * (t - OVERTIME);
 }
-function feedFoward() {
+function feedForward() {
     let inputI = [];
     for (let i = 0; i < hidden; i++) 
         for (let j = 0; j < inputLength; j++) 
-            inputI.push(canFire(input[j], scene) * inputFirst[j][i]);
+            inputI.push(canFire(input[j], scene) * inputfirst[j][i]);
     let hiddenI = [];
     for (let i = 0; i < hidden; i++)
         for (let j = 0; j < hidden; j++)
@@ -62,42 +69,49 @@ function feedFoward() {
     let firstspike = 1000;
     let result = -1;
     for (let i = 0; i < outputLength; i++) {
-        if (canFire(output[i], outputI[i]) && firstSpike > output[i][7][output[i][7].length - 1]) {
-            firstSpike 
-
+        if (canFire(output[i], outputI[i]) && firstspike > output[i][7][output[i][7].length - 1]) {
+            firstspike =  output[i][7][output[i][7].length - 1];
+            result = i;
         }
     }
+    let diff = loss(result);
+    console.log("My loss " + diff);
+    backProp();
+}
+function backProp() {
+    for (let i = 0; i < inputLength; i++){
+        let inhibit = canFire(input[i], -1);
+    }
+
 }
 setInterval(keepTime, 1000);
-let firstLayer = [], secondLayer = [], output = [], input = [], rewards = [];
-let hidden = 10, inputLength = 15, outputLength = 5;
-let beta = 0.25, R = 0.9, C = 0.8, urest = 0, ureset = 0, threshold = 1; 
-let inputfirst = [], firstsecond = [], secondoutput = [];
+setInterval(feedForward, 1000);
 for (let i = 0; i < hidden; i++) {
-    firstLayer.push(createNeuron());
-    secondLayer.push(createNeuron());
+    firstLayer.push(createNeuron(R, C, threshold, urest, ureset));
+    secondLayer.push(createNeuron(R, C, threshold, urest, ureset));
 }
 for (let i = 0; i < outputLength; i++) {
-    output.push(createNeuron());
+    output.push(createNeuron(R, C, threshold, urest, ureset));
     rewards.push(0);
 }
 for (let i = 0; i < inputLength; i++) 
-    input.push(createNeuron());
+    input.push(createNeuron(R, C, threshold, urest, ureset));
 for (let i = 0; i < hidden; i++) {
     let layer = [];
     for (let j = 0; j < hidden; j++) 
         layer.push(createWeight());
     firstsecond.push(layer);
 }
-for (let i = 0; i < hidden; i++) {
-    let layer = [];
-    for (let j = 0; j < outputLength; j++) 
-        layer.push(createWeight());
-    inputfirst.push(layer);
-}
 for (let i = 0; i < inputLength; i++) {
     let layer = [];
     for (let j = 0; j < hidden; j++) 
         layer.push(createWeight());
+    inputfirst.push(layer);
+}
+for (let i = 0; i < hidden; i++) {
+    let layer = [];
+    for (let j = 0; j < outputLength; j++) 
+        layer.push(createWeight());
     secondoutput.push(layer);
 }
+feedForward();
