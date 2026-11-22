@@ -1,0 +1,69 @@
+.sea {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    object-fit: cover;
+}
+
+.turtle {
+    height: 20vh;
+    width: 20vw;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+    top: 60vh;
+    left: 42vw;
+}
+
+.item-maker {
+    position: relative;
+    height: 30vh;
+    width: 30vw;
+    top: 55vh;
+    left: 50vw;
+}
+
+.item-code {
+    position: relative;
+    top: 47vh;
+    left: 29vw;
+    width: 18vw;
+    height: 6vh;
+    padding: 2px;
+    border-radius: 10px;
+    background-color: rgba(221, 142, 23, 0.5);
+    border: 3px solid #971910;
+    font-family: cursive;
+    font-size: 30px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    z-index: 1;
+    border: 3px solid #239bc0;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgba(42, 195, 206, 0.75);
+    font-size: 30px;
+    font-family: cursive;
+}
+
+.description {
+    font-family: cursive;
+    padding: 2px;
+    border-radius: 10px;
+    background-color: rgba(221, 142, 23, 0.5);
+    border: 3px solid #971910;
+    position: relative;
+    height: 10vh;
+    width: 14vw;
+    font-size: 15px;
+    top: 22vh;
+    left: 85vw;
+}

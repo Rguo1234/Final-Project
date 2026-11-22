@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="s-house.css" type = "text/css">
+    <script src = "../brain.js" defer></script>
+    <title>Turtle House</title>
+</head>
+<body>
+    <img class = "sea" src = "https://media.istockphoto.com/id/537816526/vector/underwater-world.jpg?s=612x612&w=0&k=20&c=U_1QpgfCsqkNFdbiLqFs6C-RyC5d2Eyfl5Kf8_YBgT0=">
+    <div class = "center"><h1>Turtle Home</h1></div>
+    <img class = "turtle" src = "../images/turtle2.png">
+    <img class = "item-maker" src = "../images/ITEMMAKER.png">
+    <input type = "text" class = "item-code">
+    <p class = "description">Click Enter Key to Submit the Code<br> Click item then use WASD to move them</p>
+    <script>
+    let itemsCodes = ["SSARGAES", "NIHCRU", "HSIFYLLEJ", "HSIF", "GAB", "HSIFRTAS", "HSIFBOLB", "HSIFNUS"];
+    let itemCode = document.getElementsByTagName("input")[0];
+    let selected = "";
+    let id = 0;
+    let selectedElement = null;
+    let X = 0, Y= 0;
+    itemCode.addEventListener("keydown", returnInput);
+    function returnInput(event) {
+        if (event.key == "Enter") {
+            let inputItem = itemCode.value;
+            for (let i = 0; i < 8; i++) {
+                if (inputItem == itemsCodes[i]) {
+                    let url = reverse(inputItem).toLowerCase();
+                    let newImage = document.createElement("img");
+                    url = "../images/" + url + ".png";
+                    newImage.setAttribute("src", url);
+                    newImage.style.height = "20vh";
+                    newImage.style.width = "20vw";
+                    newImage.setAttribute("onclick", "select(this)");
+                    newImage.setAttribute("id", id++);
+                    document.body.append(newImage);
+                    let addedImage = document.getElementsByTagName("img")[document.getElementsByTagName("img").length - 1];
+                    addedImage.style.position = "relative";
+                    addedImage.style.top = "20vh";
+                    addedImage.style.left = "60vw";
+                    let x = 0;
+                    let interval = setInterval(function() {
+                        if (x++ >= 100) 
+                            clearInterval(interval);
+                        addedImage.style.left = (60 - x) / 100 + "vw";
+                        addedImage.style.top = -25 - Math.pow(60 - x, 2) / 100 + "vh";
+                    }, 100);
+                    return;
+                }
+            }
+            alert("Wrong Item Code");
+        }
+    }
+    function reverse(string) {
+        var res = "";
+        for (let i = string.length - 1; i >= 0; i--)
+            res += string[i];
+        return res;
+    }
+    function select(element) {
+        selected = "" + element.id;
+        selectedElement = document.getElementById(selected);
+        console.log(selectedElement);
+    }
+    document.body.addEventListener("keydown", left);
+    document.body.addEventListener("keydown", right);
+    document.body.addEventListener("keydown", down);
+    document.body.addEventListener("keydown", up);
+    function left(event) {
+        if (event.key == 'a' && selectedElement != null) {
+            console.log(selectedElement.style.left);
+            selectedElement.style.left = X - 5 + "px";
+            X -= 5;
+        }
+    }
+    function right(event) {
+        if (event.key == 'd' && selectedElement != null) {
+            selectedElement.style.left = X + 5 + "px";
+            X+= 5;
+        }
+    }
+    function down(event) {
+        if (event.key == 's' && selectedElement != null) {
+            selectedElement.style.top = Y + 5 + "px";
+            Y += 5;
+        }
+    }
+    function up(event) {
+        if (event.key == 'w' && selectedElement != null){
+            selectedElement.style.top = Y - 5 + "px";
+            Y -= 5;
+        }
+    }
+    </script>
+</body>
+</html>

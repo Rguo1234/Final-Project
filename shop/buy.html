@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="s-buy.css" type = "text/css">
+    <title>Shop</title>
+</head>
+<body>
+    <img class = "sea" src = "https://img.magnific.com/free-vector/nature-underwater-blue-clear-water-background_1308-129993.jpg?semt=ais_hybrid&w=740&q=80">
+    <div class = "center"><h1>SHOP</h1></div>
+    <div class = "center"><button onclick = "getPearl()" class = "pearl">Get Pearls <img class = "pearl-icon" src = "../images/pearl.png"></button></div>
+    <div class = "center"><br><input type = "text" placeholder = "Type in your star code (Make sure to press enter to submit)"></div><br>
+    <div class = "balance"><p>Balance: 0<img class = "pearl-icon" src = "../images/pearl.png"></p></div>
+    <div class = "shoppe">
+    <table>
+        <tr>
+            <td><img src = "../images/seagrass.png"><div class = "center"><button onclick = "showCode(this, 0)" class = "item">Buy Seagrass 5<img class = "pearl-icon" src = "../images/pearl.png"></button></div></td>
+            <td><img src = "../images/urchin.png"><div class = "center"><button onclick = "showCode(this, 1)" class = "item">Buy Urchin 10<img class = "pearl-icon" src = "../images/pearl.png"></button></div></td>
+        </tr>
+        <tr>
+            <td><img src = "../images/jellyfish.png"><div class = "center"><button onclick = "showCode(this, 2)" class = "item">Buy Jellyfish 15<img class = "pearl-icon" src = "../images/pearl.png"></button></div></td>
+            <td><img src = "../images/fish.png"><div class = "center"><button onclick = "showCode(this, 3)" class = "item">Buy Fish 20<img class = "pearl-icon" src = "../images/pearl.png"></button></div></td>
+        </tr>
+        <tr>
+            <td><img src = "../images/plastic.png"><div class = "center"><button onclick = "showCode(this, 4)" class = "item">Buy Plastic Bag 25<img class = "pearl-icon" src = "../images/pearl.png"></button></div></td>
+            <td><img src = "../images/starfish.png"><div class = "center"><button onclick = "showCode(this, 5)" class = "item">Buy Starfish 30<img class = "pearl-icon" src = "../images/pearl.png"></button></div></td>
+        </tr>
+        <tr>
+            <td><img src = "../images/blobfish.png"><div class = "center"><button onclick = "showCode(this, 6)" class = "item">Buy Blobfish 35<img class = "pearl-icon" src = "../images/pearl.png"></button></div></td>
+            <td><img src = "../images/sunfish.png"><div class = "center"><button onclick = "showCode(this, 7)" class = "item">Buy Sunfish 40<img class = "pearl-icon" src = "../images/pearl.png"></button></div></td>
+        </tr>
+    </table>
+    </div>
+    <script>
+    let balance = 0;
+    let starCodes = ['EAT', "WALK", "RUN", "FURNITURE", "MONEY", "SHELL", "OCEAN", "PLAY"];
+    let itemsCodes = ["SSARGAES", "NIHCRU", "HSIFYLLEJ", "HSIF", "CITSALP", "HSIFRTAS", "HSIFBOLB", "HSIFNUS"];
+    function getPearl() {
+        let starCode = document.getElementsByTagName("input")[0];
+        starCode.style.visibility = "visible";
+        starCode.addEventListener("keydown", returnInput);
+    }
+    function returnInput(event) {
+        if (event.key == "Enter") {
+            let inputStar = document.getElementsByTagName("input")[0].value;
+            const n = starCodes.length;
+            for (let i = 0; i < n; i++) {
+                if (starCodes[i] == inputStar) {
+                    balance += 5;
+                    let balanceText = document.getElementsByTagName('p')[0];
+                    balanceText.innerHTML = "Balance: " + balance + "<img class = 'pearl-icon' src = '../images/pearl.png'>";
+                    alert("5 Pearls have been added to your Balance!");
+                    starCodes[i] = starCodes[n - 1];
+                    starCodes.pop();
+                    return;
+                }
+            }
+            alert("Wrong Star Code");
+        }
+    }
+    function showCode(element, index) {
+        const price = (index + 1) * 5;
+        if (balance >= price) {
+            element.innerHTML = "Code: " + itemsCodes[index];
+            balance -= price;
+            let balanceText = document.getElementsByTagName('p')[0];
+            balanceText.innerHTML = "Balance: " + balance + "<img class = 'pearl-icon' src = '../images/pearl.png'>";
+            alert("You have successfully bought " + reverse(itemsCodes[index]) + "! Enter the code into the machine in the turtle's enclosure");
+        }
+    }
+    function reverse(string) {
+        var res = "";
+        for (let i = string.length - 1; i >= 0; i--)
+            res += string[i];
+        return res;
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+h1 {
+    z-index: 1;
+    border: 3px solid #0e0f4e;
+    width: 200px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgba(28, 80, 190, 0.75);
+    font-size: 30px;
+    font-family: cursive;
+    text-align: center;
+}
+
+.pearl-icon {
+    height: 30px;
+    width: 22px;
+    object-fit: cover;
+    position: relative;
+    top: 5px;
+}
+
+.pearl {
+    height: 50px;
+    border: 3px solid #239bc0;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgba(42, 195, 206, 0.75);
+    font-size: 23px;
+    font-family: cursive;
+    z-index: 1;
+}
+
+input {
+    visibility: hidden;
+    z-index: 1;
+    width: 30vw;
+    background-color: rgba(216, 213, 41, 0.75);
+    border: 3px solid #e4f0a0;
+    font-family: cursive;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.balance {
+    height: 50px;
+    border: 3px solid #239bc0;
+    width: fit-content;
+    font-size: 23px;
+    font-family: cursive;
+    padding: 5px;
+    background-color: rgba(42, 195, 206, 0.5);
+    float: right;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 90vh;
+    right: 32vw;
+    z-index: 1;
+}
+
+td {
+    width: 400px;
+}
+
+tr {
+    height: 300px;
+}
+
+img {
+    height: 289px;
+    width: 400px;
+    object-fit: cover;
+}
+
+table {
+    left: 27vw;
+    position: relative;
+}
+
+button.item {
+    height: 24px;
+    border: 3px solid #239bc0;
+    width: fit-content;
+    padding: 2px;
+    border-radius: 10px;
+    background-color: rgba(42, 195, 206, 0.5);
+    font-size: 12px;
+    font-family: cursive;
+    display: flex;
+    align-items: center;
+}
+
+.sea {
+    position: absolute;
+    height: 180vh;
+    width: 100vw;
+    object-fit: cover;
+}
+
+.shoppe {
+    height: 150vh;
+    width: 100vw;
+}
