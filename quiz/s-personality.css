@@ -1,0 +1,41 @@
+.sea {
+    position: absolute;
+    height: 180vh;
+    width: 100vw;
+    object-fit: cover;
+}
+
+h1 {
+    position: relative;
+    z-index: 1;
+}
+
+.A {
+    height: 2vh;
+    width: 2vw;
+}
+
+.B {
+    height: 4vh;
+    width: 4vw;
+}
+
+.C {
+    height: 6vh;
+    width: 6vw;
+}
+
+.E {
+    height: 2vh;
+    width: 2vw;
+}
+
+.D {
+    height: 4vh;
+    width: 4vw;
+}
+
+li {
+    position: relative;
+    z-index: 1;
+}

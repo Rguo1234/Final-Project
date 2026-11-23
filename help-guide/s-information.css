@@ -1,2 +1,59 @@
+.sea {
+    position: absolute;
+    height: 180vh;
+    width: 100vw;
+    object-fit: cover;
+    border: 0px;
+}
+
+p {
+    position: relative;
+    z-index: 2;
+    border: 3px solid #176ee0;
+    height: fit-content;
+    width: 400px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgba(17, 62, 212, 0.75);
+    font-size: 20px;
+    font-family: cursive;
+}
+
+h1 {
+    z-index: 1;
+    border: 3px solid #239bc0;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgba(42, 195, 206, 0.75);
+    font-size: 40px;
+    font-family: cursive;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-turtle {
+    width: fit-content;
+    height: 200px;
+}
+
+img {
+    border: 3px dashed #380877;
+    object-fit: contain;
+    height: 40vh; 
+    width: 28vw;
+    z-index: 1;
+}
 
 
+.space {
+    width: 2vw;
+}
+
+.bigger {
+    height: 166px;
+}

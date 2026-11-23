@@ -67,3 +67,8 @@ h1 {
     top: 22vh;
     left: 85vw;
 }
+
+#star {
+    height: 5vh;
+    width: 5vw;
+}

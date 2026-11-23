@@ -5,6 +5,8 @@ let firstLayer = [], secondLayer = [], output = [], input = [], rewards = [];
 let hidden = 10, inputLength = 15, outputLength = 5;
 let beta = 0.25, R = 0.9, C = 0.8, urest = 0, ureset = 0, threshold = 1; 
 let inputfirst = [], firstsecond = [], secondoutput = [];
+let turtleLocation = 42;
+let starCodes = ['EAT', "WALK", "RUN", "FURNITURE", "MONEY", "SHELL", "OCEAN", "PLAY"];
 function createNeuron(R, C, threshold, urest, ureset) {
     let neuron = [R, C, threshold, urest, ureset, R * C, [], []];
     return neuron;
@@ -54,6 +56,23 @@ function loss(output) {
     return Math.pow((reward() - output), 2) + beta * (t - OVERTIME);
 }
 function feedForward() {
+    if (Math.random() < 0.18) {
+        let star = document.createElement('p');
+        star.innerHTML = starCodes[Math.floor(Math.random() * 8)] + " <img src = '../images/starfish.png' id = 'star'>";
+        document.body.append(star);
+        let starImage = document.getElementsByTagName('p')[document.getElementsByTagName('p').length - 1];
+        starImage.style.position = "relative";
+        starImage.style.top = "20vh";
+        starImage.style.left = "60vw";
+        starImage.style.fontFamily = "cursive";
+        let x = 0;
+        let interval = setInterval(function() {
+        if (x++ >= 100) 
+            clearInterval(interval);
+            starImage.style.left = (60 - x) / 100 + "vw";
+            starImage.style.top = -25 - Math.pow(60 - x, 2) / 100 + "vh";
+        }, 100);
+    }
     let inputI = [];
     for (let i = 0; i < hidden; i++) 
         for (let j = 0; j < inputLength; j++) 
@@ -76,6 +95,17 @@ function feedForward() {
     }
     let diff = loss(result);
     console.log("My loss " + diff);
+    let turtle = document.getElementsByClassName("turtle")[0];
+    if (result == 0)
+        turtle.style.left = ++turtleLocation + "vw";
+    else if (result == 1)
+        turtle.style.left = --turtleLocation + "vw";
+    else if (result == 2)
+        turtle.src = "../images/turtle-eat.png";
+    else if (result == 3)
+        turtle.src = "../images/turtle-sleep.png";
+    else 
+        turtle.src = "../images/turtle-play.png";
     backProp();
 }
 function backProp() {
