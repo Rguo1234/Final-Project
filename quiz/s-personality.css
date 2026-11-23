@@ -8,6 +8,13 @@
 h1 {
     position: relative;
     z-index: 1;
+    border: 3px solid #239bc0;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgba(42, 195, 206, 0.75);
+    font-size: 45px;
+    font-family: cursive;
 }
 
 .A {
@@ -38,4 +45,47 @@ h1 {
 li {
     position: relative;
     z-index: 1;
+}
+
+p {
+    float: left;
+    position: relative;
+    z-index: 2;
+    border: 3px solid #176ee0;
+    height: 20px;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgba(17, 62, 212, 0.75);
+    font-size: 15px;
+    font-family: cursive;
+}
+
+.ask {
+    float: none;
+    background-color: rgba(230, 214, 75, 0.75);
+    border: 3px solid #dace28;
+}
+
+#answer {
+    width: 54vw;
+
+}
+
+.agree {
+    float: right;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+li {
+    background-color: rgba(36, 156, 172, 0.5);
+    border: 3px solid #154e74;
+    font-family: cursive;
+    font-size: 40px;
+    width: fit-content;
 }

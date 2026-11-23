@@ -1,0 +1,60 @@
+.sea {
+    position: absolute;
+    height: 120vh;
+    width: 100vw;
+    object-fit: cover;
+}
+
+h1 {
+    position: relative;
+    z-index: 2;
+    border: 3px solid #239bc0;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgba(42, 195, 206, 0.75);
+    font-size: 45px;
+    font-family: cursive;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+p {
+    position: relative;
+    z-index: 2;
+    border: 3px solid #176ee0;
+    height: 150px;
+    width: 400px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgba(17, 62, 212, 0.75);
+    font-size: 20px;
+    font-family: cursive;
+}
+
+img {
+    position: relative;
+    z-index: 2;
+    height: 30vh;
+    width: 30vw;
+    object-fit: contain;
+}
+
+a {
+    position: relative;
+    z-index: 2;
+    border: 3px solid #0e4b34;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgba(22, 165, 41, 0.75);
+    font-size: 15px;
+    font-family: cursive;
+}
+
+.space {
+    width: 2vw;
+}
