@@ -105,3 +105,32 @@ li {
 .result {
     visibility: hidden;
 }
+
+.result-code {
+    z-index: 1;
+    position: relative;
+    border: 3px solid #1b708a;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 15px;
+    background-color: rgba(27, 137, 145, 0.5);
+    font-size: 15px;
+    font-family: cursive;
+}
+
+.display {
+    z-index: 1;
+    position: relative;
+    border: 3px solid #1d88a8;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 15px;
+    background-color: rgba(52, 218, 230, 0.5);
+    font-size: 15px;
+    font-family: cursive;
+}
+
+a {
+    position: relative;
+    z-index: 1;
+}
