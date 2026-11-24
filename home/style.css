@@ -117,3 +117,27 @@ p {
     top: -28vh;
     left: 6vw;
 }
+
+#fill {
+    object-fit: cover;
+}
+
+.personality {
+    position: relative;
+    left: 6vw;
+    top: -6vh;
+}
+
+.help {
+    position: relative;
+    z-index: 1;
+    left: 79vw;
+    top: -20vh;
+    border: 3px solid #239bc0;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: rgba(42, 195, 206, 0.5);
+    font-size: 30px;
+    font-family: cursive;
+}
