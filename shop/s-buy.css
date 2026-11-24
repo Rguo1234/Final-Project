@@ -96,7 +96,7 @@ button.item {
 
 .sea {
     position: absolute;
-    height: 180vh;
+    height: 190vh;
     width: 100vw;
     object-fit: cover;
 }
@@ -104,4 +104,14 @@ button.item {
 .shoppe {
     height: 150vh;
     width: 100vw;
+}
+
+.home {
+    position: relative;
+    z-index: 1;
+    height: 20vh;
+    width: 20vw;
+    top: -20vh;
+    left: 67vw;
+    object-fit: contain;
 }

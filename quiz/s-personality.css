@@ -185,3 +185,16 @@ ol {
     top: 30vh;
     visibility: hidden;
 }
+
+.home {
+    position: relative;
+    height: 20vh;
+    width: 20vw;
+    top: 5vh;
+    left: 67vw;
+}
+
+.home-link {
+    border: none;
+    background-color: transparent;
+}

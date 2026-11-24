@@ -1,6 +1,6 @@
 .sea {
     position: absolute;
-    height: 120vh;
+    height: 130vh;
     width: 100vw;
     object-fit: cover;
 }
@@ -53,8 +53,22 @@ a {
     background-color: rgba(22, 165, 41, 0.75);
     font-size: 15px;
     font-family: cursive;
+    top: -5vh;
+    left: 10vw;
 }
 
 .space {
     width: 2vw;
+}
+
+.home {
+    height: 20vh;
+    width: 20vw;
+    top: -10vh;
+    left: 25vw;
+}
+
+.home-link {
+    background-color: transparent;
+    border: none;
 }

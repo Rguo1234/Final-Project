@@ -1,4 +1,5 @@
 const OVERTIME = 1000;
+let probability = 0.25;
 let t= 0;
 let scene = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1];
 let firstLayer = [], secondLayer = [], output = [], input = [], rewards = [];
@@ -56,7 +57,7 @@ function loss(output) {
     return Math.pow((reward() - output), 2) + beta * (t - OVERTIME);
 }
 function feedForward() {
-    if (Math.random() < 0.18) {
+    if (Math.random() < probability) {
         let star = document.createElement('p');
         star.innerHTML = starCodes[Math.floor(Math.random() * 8)] + " <img src = '../images/starfish.png' id = 'star'>";
         document.body.append(star);
@@ -72,6 +73,7 @@ function feedForward() {
             starImage.style.left = (60 - x) / 100 + "vw";
             starImage.style.top = -25 - Math.pow(60 - x, 2) / 100 + "vh";
         }, 100);
+        probability = Math.max(probability - 0.01, 0);
     }
     let inputI = [];
     for (let i = 0; i < hidden; i++) 
