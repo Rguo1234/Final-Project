@@ -10,7 +10,7 @@
     <img class = "sea" src = "https://img.magnific.com/free-vector/nature-underwater-blue-clear-water-background_1308-129993.jpg?semt=ais_hybrid&w=740&q=80">
     <h1>Personality Quiz</h1>
     <ol>
-    <li><div id = "question">
+    <li><div class = "question">
         <p class = "ask">When you see a predator, you are likely to run away</p>
         <div id = "answer" class = "center">
             <p>Strongly Disagree</p>
@@ -22,7 +22,7 @@
             <p class = "agree">Strongly Agree</p>
         </div>
     </div></li><br>
-    <li><div id = "question">
+    <li><div class = "question">
         <p class = "ask">You tend to not enjoy partying</p>
         <div id = "answer" class = "center">
             <p>Strongly Disagree</p>
@@ -34,7 +34,7 @@
             <p class = "agree">Strongly Agree</p>
         </div>
     </div></li><br>
-    <li><div id = "question">
+    <li><div class = "question">
         <p class = "ask">You self reflect often</p>
         <div id = "answer" class = "center">
             <p>Strongly Disagree</p>
@@ -46,7 +46,7 @@
             <p class = "agree">Strongly Agree</p>
         </div>
     </div></li><br>
-    <li><div id = "question">
+    <li><div class = "question">
         <p class = "ask" >Some might call you sensitive</p>
         <div id = "answer" class = "center"> 
             <p>Strongly Disagree</p>
@@ -58,7 +58,7 @@
             <p class = "agree">Strongly Agree</p>
         </div>
     </div></li><br>
-    <li><div id = "question">
+    <li><div class = "question">
         <p class = "ask">Your best trait is foresight</p>
         <div id = "answer" class = "center">
             <p>Strongly Disagree</p>
@@ -72,7 +72,7 @@
     </div>
     </li>
     <br>
-   <li> <div id = "question">
+   <li> <div class = "question">
         <p class = "ask">You have big eyes</p>
         <div id = "answer" class = "center">
             <p>Strongly Disagree</p>
@@ -86,7 +86,7 @@
     </div>
     </li>
     <br>
-    <li><div id = "question">
+    <li><div class = "question">
         <p class = "ask">You see yourself as the protecter</p>
         <div id = "answer" class = "center">
             <p>Strongly Disagree</p>
@@ -101,7 +101,7 @@
     </li>
     <br>
     <li>
-    <div id = "question">
+    <div class = "question">
         <p class = "ask">You are a follower</p>
         <div id = "answer" class = "center">
             <p>Strongly Disagree</p>
@@ -115,10 +115,32 @@
     </div>
     </li>
     </ol>
-    <button onlick = "submit()" class = "submit">Submit</button>
-    <p class = "result"></p>
-    <br><br>
+    <div class = "short">
+    <button onclick = "submit()" class = "submit">Submit</button>
+    <p class = "result"></p><br><br>
     <a href = "./result.html">Go to Results</a>
-    <script></script>
+    </div>
+    <script>
+        function submit() {
+            let sum = 0;
+            let answers = document.querySelectorAll("#answer");
+            let results = ["SSARGAES", "NIHCRU", "HSIFYLLEJ", "HSIF", "CITSALP"];
+            for (let i = 0; i < answers.length; i++) {
+                let choices = answers[i].getElementsByTagName("input");
+                for (let j = 0; j < choices.length; j++) 
+                    if (choices[j].checked) 
+                        sum += j;
+            }
+            let result = document.querySelector(".result");
+            result.innerHTML = "You are " + reverse(results[Math.floor(sum / 7)]) + " with CODE: " + results[Math.floor(sum / 7)];
+            result.style.visibility = "visible";
+        }
+        function reverse(string) {
+            var res = "";
+            for (let i = string.length - 1; i >= 0; i--)
+                res += string[i];
+            return res;
+        }
+    </script>
 </body>
 </html>

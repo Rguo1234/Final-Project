@@ -1,6 +1,6 @@
 .sea {
     position: absolute;
-    height: 180vh;
+    height: 185vh;
     width: 100vw;
     object-fit: cover;
 }
@@ -100,13 +100,21 @@ li {
     background-color: rgba(27, 137, 145, 0.5);
     font-size: 30px;
     font-family: cursive;
+    left: 4vw;
 }
 
 .result {
     visibility: hidden;
+    background-color: rgba(230, 214, 75, 0.75);
+    border: 3px solid #dace28;
+    width: 10vw;
+    height: fit-content;
+    font-family: cursive;
+    font-size: 15px;
+    float: right;
 }
 
-.result-code {
+input[type = "text"] {
     z-index: 1;
     position: relative;
     border: 3px solid #1b708a;
@@ -133,4 +141,47 @@ li {
 a {
     position: relative;
     z-index: 1;
+    border: 3px solid #5fb644;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 15px;
+    background-color: rgba(52, 218, 230, 0.5);
+    font-size: 15px;
+    font-family: cursive;
+    left: 4vw;
+}
+
+ol {
+    position: relative;
+    left: 1vw;
+}
+
+.short {
+    width: 30vw;
+}
+
+.image {
+    top: 15vh;
+    height: 40vh;
+    width: 40vw;
+    object-fit: contain;
+    z-index: 1;
+    position: relative;
+    left: -5vw;
+    visibility: hidden;
+}
+
+#describe {
+    z-index: 2;
+    left: 10vw;
+    visibility: hidden;
+    height: fit-content;
+    width: 20vw;
+}
+
+#title {
+    z-index: 2;
+    left: 32vw;
+    top: 30vh;
+    visibility: hidden;
 }

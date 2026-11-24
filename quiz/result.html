@@ -9,10 +9,37 @@
 <body>
     <img class = "sea" src = "https://img.magnific.com/free-vector/nature-underwater-blue-clear-water-background_1308-129993.jpg?semt=ais_hybrid&w=740&q=80">
     <h1>Results: Deeper Dive</h1>
-    <input type = "text" placeholder = "Put in your result code" class = "result-code">
+    <input type = "text" placeholder = "Put in your result code">
     <button class = "display" onclick = "displayResult()">Display Deeper Dive</button>
+    <div class = "center">
+        <p class = "ask" id = "describe"></p>
+        <p class = "ask" id = "title"></p>
+        <img class = "image">
+    </div>
     <script>
-        
+        let descriptions = ["You tend to be a calm, cool, and collected. Not really proactive in your life just letting ocean waves go by", "You got a prickly exterior but soft and sensitive inside", "Your a gentle soul and tend to let life pass by you", "You want to get things done going from point A to point B as quickly as possible", "You have a toxic and aggressive personality"];
+        let results = ["SSARGAES", "NIHCRU", "HSIFYLLEJ", "HSIF", "CITSALP"];
+        function displayResult() {
+            let i = 0;
+            while (i < 5) {
+                let code = document.getElementsByTagName("input")[0].value;
+                if (code == results[i]) {
+                    document.getElementById("describe").innerHTML = descriptions[i];
+                    document.getElementById("title").innerHTML = reverse(results[i]);
+                    document.querySelector(".image").src = "../images/" + reverse(results[i]).toLowerCase() + ".png";
+                    document.getElementById("describe").style.visibility = "visible";
+                    document.getElementById("title").style.visibility  = "visible";
+                    document.querySelector(".image").style.visibility = "visible";
+                }
+                i++;
+            }
+        }
+        function reverse(string) {
+            var res = "";
+            for (let i = string.length - 1; i >= 0; i--)
+                res += string[i];
+            return res;
+        }
     </script>
 </body>
 </html>

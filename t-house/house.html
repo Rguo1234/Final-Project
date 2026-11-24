@@ -15,12 +15,12 @@
     <input type = "text" class = "item-code">
     <p class = "description">Click Enter Key to Submit the Code<br> Click item then use WASD to move them</p>
     <script>
-    let itemsCodes = ["SSARGAES", "NIHCRU", "HSIFYLLEJ", "HSIF", "GAB", "HSIFRTAS", "HSIFBOLB", "HSIFNUS"];
+    let itemsCodes = ["SSARGAES", "NIHCRU", "HSIFYLLEJ", "HSIF", "CITSALP", "HSIFRTAS", "HSIFBOLB", "HSIFNUS"];
     let itemCode = document.getElementsByTagName("input")[0];
     let selected = "";
     let id = 0;
     let selectedElement = null;
-    let X = 0, Y= 0;
+    let X = 0, Y = 0;
     itemCode.addEventListener("keydown", returnInput);
     function returnInput(event) {
         if (event.key == "Enter") {
