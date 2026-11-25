@@ -1,62 +1,56 @@
-const OVERTIME = 1000;
-let probability = 0.25;
+const OVERTIME = 10000;
+let probability = 0.20;
+let scene = [0, 0, 0];
 let t= 0;
-let scene = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1];
 let firstLayer = [], secondLayer = [], output = [], input = [], rewards = [];
 let hidden = 10, inputLength = 15, outputLength = 5;
-let beta = 0.25, R = 0.9, C = 0.8, urest = 0, ureset = 0, threshold = 1; 
+let R = 0.9, C = 0.8, urest = 0.1, ureset = 0, threshold = 0.5; 
 let inputfirst = [], firstsecond = [], secondoutput = [];
 let turtleLocation = 42;
 let starCodes = ['EAT', "WALK", "RUN", "FURNITURE", "MONEY", "SHELL", "OCEAN", "PLAY"];
+function normalize() {
+    let res = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    let mn = OVERTIME;
+    for (let i = 0; i < scene.length; i++)
+        mn = Math.min(mn, scene[i]);
+    if (mn == 0) mn = 1;
+    for (let i = 0; i < scene.length; i++)
+        scene[i] /= mn;
+    let j = 0;
+    for (let i = 0; i < scene.length; i++) {
+        scene[i] = Math.round(scene[i]);
+        while (j < 5 * (i + 1)) {
+            res[j++] = scene[i] % 2;
+            scene[i] = Math.floor(scene[i] / 2);
+        }
+    }
+    scene = res;
+} 
 function createNeuron(R, C, threshold, urest, ureset) {
-    let neuron = [R, C, threshold, urest, ureset, R * C, [], []];
+    let neuron = [R, C, threshold, urest, ureset, R * C, [0], [urest]];
     return neuron;
 }
 function canFire(neuron, I) {
-    let u = (neuron[0] * I + neuron[3]) + (neuron[7][t - 1] - (neuron[0] * I + neuron[3])) * Math.exp(-1 / neuron[5]);
-    if (u >= threshold) {
+    I *= 5;
+    let u = (neuron[0] * I + neuron[3]) + (neuron[7][Math.max(0, t - 1)] - (neuron[0] * I + neuron[3])) * Math.exp(-(t - neuron[6][Math.max(0, neuron[6].length - 1)]) / neuron[5]);
+    if (u >= neuron[2]) {
         u = neuron[4];
-        neuron[7].push(u);
         neuron[6].push(t);
+        neuron[7].push(u);
         return 1;
     }
     neuron[7].push(u);
     return 0;
 }
 function createWeight() {
-    return Math.random();
-}
-function keepTime() {
-    if (t > OVERTIME) {
-        for (let i = 0; i < hidden; i++) {
-            firstLayer[i][7] = [];
-            firstLayer[i][6] = [];
-            secondLayer[i][7] = [];
-            secondLayer[i][6] = [];
-        }
-        for (let i = 0; i < inputLength; i++) {
-            input[i][7] = [];
-            input[i][6] = [];
-        }
-        for (let i = 0; i < outputLength; i++) {
-            output[i][7] = [];
-            output[i][6] = [];
-        } 
-        t = 0;
-    }
-    t++;
+    return Math.random() * 5;
 }
 function reward() {
-    rewards[0] = 1;
-    let mx = 0;
-    for (let i = 0; i < outputLength; i++)
-        mx = Math.max(mx, rewards[i]);
-    return mx;
-}
-function loss(output) {
-    return Math.pow((reward() - output), 2) + beta * (t - OVERTIME);
+    if (turtleLocation > 70) rewards[0] = 1;
+    else if (turtleLocation < 20) rewards[1] = 1;
 }
 function feedForward() {
+    t++;
     if (Math.random() < probability) {
         let star = document.createElement('p');
         star.innerHTML = starCodes[Math.floor(Math.random() * 8)] + " <img src = '../images/starfish.png' id = 'star'>";
@@ -75,28 +69,51 @@ function feedForward() {
         }, 100);
         probability = Math.max(probability - 0.01, 0);
     }
-    let inputI = [];
-    for (let i = 0; i < hidden; i++) 
+    scene = [document.getElementsByTagName("img").length, t, document.querySelectorAll("#star").length];
+    normalize();
+    let inputI = [], fire = [];
+    for (let i = 0; i < inputLength; i++)
+        fire.push(canFire(input[i], scene[i]));
+    for (let i = 0; i < hidden; i++) {
+        let sum = 0;
         for (let j = 0; j < inputLength; j++) 
-            inputI.push(canFire(input[j], scene) * inputfirst[j][i]);
+            sum += fire[j] * inputfirst[j][i];
+        inputI.push(sum);
+    }
     let hiddenI = [];
+    fire = [];
     for (let i = 0; i < hidden; i++)
-        for (let j = 0; j < hidden; j++)
-            hiddenI.push(canFire(firstLayer[j], inputI[j]) * firstsecond[j][i]);
+        fire.push(canFire(firstLayer[i], inputI[i]));
+    for (let i = 0; i < hidden; i++) {
+        let sum = 0;
+        for (let j = 0; j < hidden; j++) 
+            sum += fire[j] * firstsecond[j][i];
+        hiddenI.push(sum);
+    } 
     let outputI = [];
+    fire = [];
     for (let i = 0; i < hidden; i++)
-        for (let j = 0; j < outputLength; j++)
-            outputI.push(canFire(secondLayer[j], hiddenI[j]) * secondoutput[j][i]);
-    let firstspike = 1000;
-    let result = -1;
+        fire.push(canFire(secondLayer[i], hiddenI[i]));
     for (let i = 0; i < outputLength; i++) {
-        if (canFire(output[i], outputI[i]) && firstspike > output[i][7][output[i][7].length - 1]) {
-            firstspike =  output[i][7][output[i][7].length - 1];
+        let sum = 0;
+        for (let j = 0; j < hidden; j++) 
+            sum += fire[j] * secondoutput[j][i];
+        outputI.push(sum);
+    } 
+    let spikeAvg =0, squared =0, result = -1, firstspike = OVERTIME;
+    for (let i = 0; i < outputLength; i++) {
+        if (canFire(output[i], outputI[i]) && firstspike > output[i][6][output[i][6].length - 1]) {
+            firstspike = output[i][7][output[i][7].length - 1];
             result = i;
         }
     }
-    let diff = loss(result);
-    console.log("My loss " + diff);
+    for (let i = 0; i < outputLength; i++) 
+        spikeAvg += output[i][6][output[i][6].length - 1];
+    spikeAvg /= outputLength;
+    for (let i = 0; i < outputLength; i++)
+        squared += Math.pow((-rewards[i] + spikeAvg / 1000), 2);
+    squared = 1 / outputLength * squared;
+    console.log(squared);
     let turtle = document.getElementsByClassName("turtle")[0];
     if (result == 0)
         turtle.style.left = ++turtleLocation + "vw";
@@ -108,16 +125,38 @@ function feedForward() {
         turtle.src = "../images/turtle-sleep.png";
     else 
         turtle.src = "../images/turtle-play.png";
-    backProp();
+    if (t > OVERTIME) {
+        for (let i = 0; i < hidden; i++) {
+            firstLayer[i][7] = [];
+            firstLayer[i][6] = [];
+            secondLayer[i][7] = [];
+            secondLayer[i][6] = [];
+        }
+        for (let i = 0; i < inputLength; i++) {
+            input[i][7] = [];
+            input[i][6] = [];
+        }
+        for (let i = 0; i < outputLength; i++) {
+            output[i][7] = [];
+            output[i][6] = [];
+        } 
+        t = 0;
+    }
+    backProp()
 }
 function backProp() {
-    for (let i = 0; i < inputLength; i++){
-        let inhibit = canFire(input[i], -1);
-    }
-    
+    let alpha = 0.05;
+    for (let i = 0; i < hidden; i++) 
+        for (let j = 0; j < outputLength; j++) 
+            secondoutput[i][j] = secondoutput[i][j] - alpha * (-rewards[j] + t / 1000);
+    for (let i = 0; i < hidden; i++) 
+        for (let j = 0; j < hidden; j++) 
+            firstsecond[i][j] = firstsecond[i][j] - alpha * (t/1000);
+    for (let i = 0; i < inputLength; i++) 
+        for (let j = 0; j < hidden; j++) 
+            inputfirst[i][j] = inputfirst[i][j] - alpha * (t/1000) * (t/1000);
 }
-setInterval(keepTime, 1000);
-setInterval(feedForward, 1000);
+
 for (let i = 0; i < hidden; i++) {
     firstLayer.push(createNeuron(R, C, threshold, urest, ureset));
     secondLayer.push(createNeuron(R, C, threshold, urest, ureset));
@@ -146,3 +185,4 @@ for (let i = 0; i < hidden; i++) {
         layer.push(createWeight());
     secondoutput.push(layer);
 }
+setInterval(feedForward, 1000);
